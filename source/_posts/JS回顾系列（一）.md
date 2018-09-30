@@ -1,7 +1,7 @@
 ---
 title: JS回顾系列（一）
 date: 2018-09-29 14:49:57
-tags:
+tags: JavaScript, 数据类型
 ---
 
 ### JavaScript数据类型
