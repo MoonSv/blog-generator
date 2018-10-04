@@ -132,3 +132,43 @@ var id = setInterval(()=>{
        return sum;
    }, 0)
    ```
+
+9. 伪数组，通俗地讲就是长的像数组的对象。`伪数组.__proto !== Array.prototype`
+
+### 函数
+
+1. 现在大家基本上都用`foo(1,2)`这种方式来调用函数，但JS真正调用函数的硬核方法为`foo.call(undefined, 1, 2)`
+
+   - call的第一个参数可以用`this`得到
+
+   - call除第一个参数后面的所有参数可以用`arguments`得到
+
+     ```js
+     f = function(){
+         console.log(this);
+     }
+     f.call(undefined); // window
+     f.call(1); // 1
+     ```
+
+2. 闭包：如果一个函数使用了其作用域之外的变量，那么（变量+函数）就被称作闭包
+
+3. 做题时一定要考虑到变量提升，例如
+
+   ```js
+   var a = 1;
+   function f1(){
+       console.log(a);
+       var a = 2;
+   }
+   f1.call(undefined) // undefined
+   
+   // 上述代码根据变量提升可以看成：
+   var a = 1;
+   function f1(){
+       var a;
+       console.log(a);
+       a = 2
+   }
+   // 所以可知console.log里a的值只是声明了还未被定义，即undefined
+   ```
