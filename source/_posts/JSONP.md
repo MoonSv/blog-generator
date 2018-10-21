@@ -86,5 +86,5 @@ JSONP不是什么高大上的东西，简单地来说：
 
 Answer：
 
-1. 因为`JSONP`是通过动态创建`scirpt标签`实现的
+1. 因为`JSONP`是通过动态创建`script标签`实现的
 2. 动态创建`script`的时候只能用`GET`，无法使用`POST`
