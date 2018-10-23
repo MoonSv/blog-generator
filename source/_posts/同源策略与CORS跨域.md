@@ -1,5 +1,5 @@
 ---
-title: 同源策略与CORS跨域
+title: 同源策略与CORS跨域 & AJAX
 date: 2018-10-22 01:13:26
 tags:
 ---
@@ -48,5 +48,36 @@ Question: 为什么form等请求可以跨域，而AJAX请求无法跨域？
 response.setHeader('Access-Control-Allow-Origin', 'frontendSite');
 ```
 
+#### 4. 原生AJAX的几个方法
 
+1. 简单的4步走
+
+   ```javascript
+   let xhr = new XMLHttpRequest();  // step 1
+   xhr.open('GET', '/xxx');		 // step 2
+   xhr.onreadystatechange = () => { // step 3
+       if (xhr.readyState === 4) {
+           if (xhr.status === 200) {
+               console.log('success')
+           }
+       }
+   }
+   xhr.send();						 // step 4
+   ```
+
+2. JS 可以设置任意请求header吗？
+
+   第一部分通过 `xhr.open('GET', '/xxx')` 设置
+
+   第二部分通过 `xhr.setHeader('content-type', 'x-www-form-urlencoded')` 设置
+
+   第四部分通过 `xhr.send('a=1&b=2')` 设置
+
+3. JS 可以获取任意响应header吗？
+
+   第一部分通过 `xhr.status` / `xhr.statusText` 获取
+
+   第二部分通过 `xhr.getResponseHeader()`/`xhr.getAllResponseHeaders()` 获取
+
+   第四部分通过 `xhr.responseText` 获取
 
