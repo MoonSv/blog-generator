@@ -8,6 +8,17 @@ MVC是Modal, View and Controller的缩写，在前端引入MVC思想可以更有
 
 不似springMVC，我们现在可以简单的把前端不同功能的`function`分为不同的`Modal`。而每一部分`Modal`对应的视图部分我们可以称之为`View`，在每个`Modal`里，控制对应`View`的部分称之为`Controller`。
 
+MVC是一种代码分层思想，Model 和服务器交互，Model 将得到的数据交给 Controller，Controller 把数据填入 View，并监听 View
+用户操作 View，如点击按钮，Controller 就会接受到点击事件，Controller 这时会去调用 Model，Model 会与服务器交互，得到数据后返回给 Controller，Controller 得到数据就去更新 View
+
+Model负责数据层, 主要负责前后端的数据交互
+
+VIew负责视图, 就是将页面呈现给用户
+
+Controller负责具体的业务逻辑实现, 就是除了视图显示和前后端数据交互之外的所有东西
+
+MVC的好处：职责分明，模块清晰，代码简单。
+
 在引入`MVC`思想之后，发现我们并不想要全局变量而想使用局部变量，可在ES 5中，只有函数才具有局部变量，于是我们声明一个function并且立即执行，如
 
 ```js
@@ -25,8 +36,8 @@ function(){}.call();
 ```js
 !function(){
     var persion = {
-        name: 'frank',
-        age: 18
+        name: 'Catherine',
+        age: 17
     }
 }.call();
 ```
@@ -36,8 +47,8 @@ function(){}.call();
 ```js
 !function(){
     var persion = {
-        name: 'frank',
-        age: 18
+        name: 'Catherine',
+        age: 17
     }
     window.ageGrowUp = function(){
         person.age += 1;

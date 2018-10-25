@@ -14,36 +14,37 @@ JSONP不是什么高大上的东西，简单地来说：
 
    ```html
    <button id="click">click me</button>
-   <script>
-       click.addEventListener('click', function(){
-           let script = document.createElement("script");
-           let functionName = 'f' + parseInt(Math.random() * 100000, 10);
-           window[functionName] = function(result){
-               console.log(`the result from back end is ${result}!`);
-           }
-           script.src = `127.0.0.1:8001/pay?callbackName=${functionName}`
-           document.body.appendChild(script);
-           
-           // delete script tag when finish the request
-           script.onload = function(e){
-               e.currentTarget.remove();
-           }
-       })
-   </script>
    ```
+
+   ```js
+   click.addEventListener('click', function(){
+       let script = document.createElement("script");
+       let functionName = 'f' + parseInt(Math.random() * 100000, 10);
+       window[functionName] = function(result){
+           console.log(`the result from back end is ${result}!`);
+       }
+       script.src = `127.0.0.1:8001/pay?callbackName=${functionName}`
+       document.body.appendChild(script);
+   
+       // delete script tag when finish the request
+       script.onload = function(e){
+           e.currentTarget.remove();
+       }
+   })
+   ```
+
+
 
    当然我们可以使用jQuery用更简洁的代码实现：
 
-   ```html
-   <script>
-       $.ajax({
-           url: '127.0.0.1:8001/pay',
-           dataType: 'jsonp',
-           success: function(response){
-               console.log(`the result from back end is ${response}!`);
-           }
-       })
-   </script>>
+   ```js
+   $.ajax({
+       url: '127.0.0.1:8001/pay',
+       dataType: 'jsonp',
+       success: function(response){
+           console.log(`the result from back end is ${response}!`);
+       }
+   })
    ```
 
 2. 响应方根据查询参数`callbackName`，构造类似
