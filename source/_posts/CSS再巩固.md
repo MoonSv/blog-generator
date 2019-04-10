@@ -117,7 +117,12 @@ tags:css
 
       - 这个单位代表根元素（HTML）的`font-size`大小
 
-   2. 在哪里设置rem？
+   2. rem解决的问题：
+
+      1. 所有元素按比例缩放
+      2. 同时解决和模型高度和宽度没有关联的问题
+
+   3. 在哪里设置rem？
 
       ```css
       html{
@@ -125,9 +130,32 @@ tags:css
       }
       ```
 
-   3. 一般会用JS将设备宽度赋值给html的`font-size`
+   4. 一般会用JS将设备宽度赋值给html的`font-size`
 
       ```js
       var pageWidth = window.innerWidth;
       document.write(`<style>html{font-size: ${pageWidth}px; }</style>`)
       ```
+
+   5. body的font-size和一些特别小的地方就不要再用rem了，如border的宽度1px，直接用像素值或者em就好了
+
+10. body高度：
+
+   1. 兼容IE写法
+
+   ```css
+   body{
+       min-height: 100%;
+   }
+   html{
+       height: 100%
+   }
+   ```
+
+   2. 正常写法
+
+   ```css
+   body{
+       height: 100vh;
+   }
+   ```
