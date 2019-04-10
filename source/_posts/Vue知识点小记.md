@@ -52,4 +52,52 @@ tags:
 
 7. 自定义指令
 
-8. 
+8. Vue实现点击动画，并可无限点击
+
+   原理是通过v-bind绑定类名，通过点击事件给元素添加`active`类名来出发动画。
+
+   动画原理：动画效果为点击刷新icon进行rotate，使用`keyframes`来呈现旋转效果，简单css代码如下
+
+   ```css
+   .refresh-button {
+     color: rgb(141, 150, 151);
+     cursor: pointer;
+     font-size: 26px;
+   }
+   .refresh-button.active{
+     animation: rotate 0.6s;
+   }
+   @keyframes rotate {
+     0%{
+       transform: rotate(0deg);
+       color: rgb(141, 150, 151);
+     }
+     50%{
+       color: rgb(216, 101, 101);
+     }
+     100%{
+       transform: rotate(-360deg);
+       color: rgb(141, 150, 151); 
+     }
+   }
+   ```
+
+   使用Vue中的缩写`@`代替`v-on:`， `:`代替`v-bind:`
+
+   ```html
+   <i class="el-icon-refresh refresh-button" @click="refreshData" :class="{active: isActive}"></i>
+   ```
+
+   在Vue中写的方法为
+
+   ```js
+   refreshData() {
+       this.isActive = true;
+       // set timeout to reset rotate animation
+       setTimeout(()=>{
+           this.isActive = false
+       }, 600)
+   }
+   ```
+
+   注意这里要使用`setTimeOut()`来重置属性。
