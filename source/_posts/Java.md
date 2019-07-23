@@ -46,4 +46,30 @@ tags:
       }
       ```
 
-      
+2. 逻辑运算符和短路特性
+
+   ```java
+   Boolean config = getConfig();
+   // 1. config = true ->  true
+   // 2. config = false -> false
+   // 3. config = null -> 直接短路 -> false
+   // 在这里运用短路特性，避免报错
+   if (config != null && config){
+     ...
+   }
+   ```
+
+3. 三元运算符判断多个条件(嵌套)
+
+   ```java
+   int a = 1;
+   int b = 2;
+   /*
+   * a > b -> return 1
+   * a < b -> return -1
+   * a == b -> return 0
+   */
+   int result = a > b ? 1 :(a < b ? -1 : 0)
+   ```
+
+   
