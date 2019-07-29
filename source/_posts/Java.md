@@ -206,4 +206,41 @@ Builder可以使用`command + n`来自动构建
     二者等价
     ```
 
-  - 标准错误默认为2号输出
+    - 标准错误默认为2号输出
+  
+  - ```shell
+    java Main 1 > output.txt 2>&1
+    ```
+
+# Maven
+
+- Maven会把一些包提前下载至.m2文件夹下，方便使用
+
+- 常见的**包冲突**error：
+
+  1. `AbstractMethodError`
+  2. `NoClassDefFoundError`
+  3. `ClassNotFoundError`
+  4. `LinkageError`
+
+- 传递性依赖的自动管理
+
+  - 原则：绝对不允许最终的classpath出现同名不同版本的jar包
+
+- 依赖冲突的解决：原则：最近的胜出
+
+- 可以用
+
+  ```SHELL
+  mvn dependency:tree
+  ```
+
+  来获取依赖的信息
+
+- intellj安装插件maven helper
+
+- maven scope用来定义包在什么位置有效，例如如果scope为test就代表只在test下会引入这个包，而在main下不会引入，从而实现依赖的隔离
+
+  compile: 可以理解为main和test都会引入
+
+  provided: 只在编译的时候有效，运行的时候就没有效果了
