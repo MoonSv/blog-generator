@@ -185,7 +185,9 @@ Builder可以使用`command + n`来自动构建
 - 可以包含普通类的任何东西
 - `Collections.sort()`可以用来在自定义排序算法之后进行排序
 
+# 接口
 
+- 在Java8中，接口里可以写static和default方法
 
 # 命令行
 
@@ -210,3 +212,28 @@ Builder可以使用`command + n`来自动构建
     ```
 
   - 标准错误默认为2号输出
+
+# Collection
+
+1. **ArrayList**
+
+   - ArrayList可以使用构造器将任意一个collection传入形成一个新的ArrayList，这个ArrayList里面包含这个collection的所有元素
+
+     ```java
+     Collection<Integer> c = new LinkedHashMap();
+     
+     // IntegerList
+     List<Integer> list = new ArrayList<>(c);
+     
+     // 等价于
+     List<Integer> list2 = new ArrayList<>();
+     list2.addAll(c);
+     
+     // 等价于
+     List<Integer> list3 = new ArrayList<>();
+     for (Integer i: c){
+       list3.add(i);
+     }
+     ```
+
+     
