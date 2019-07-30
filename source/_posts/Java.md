@@ -276,3 +276,38 @@ Builder可以使用`command + n`来自动构建
      ```
 
 2. HashSet是无序的，如果有需要可以使用LinkedHashSet
+
+3. Map
+
+   - C/U: put() / putAll()
+
+   - R:
+
+     - get() / size()
+
+     - containsKey() / containsValue()
+
+     - keySet() / values() / entrySet()
+
+       **Map本身和这几个是双向绑定的，即改变其中一个会影响改变另一个**
+
+       values是可以重复的所以返回的是一个**Collection**
+
+       entrySet()是一个键值对的集合
+
+       ```java
+       for (Map.Entry<String, String> entry : map.entrySet()){
+       	System.out.println(entry.getKey());
+         	System.out.println(entry.getValue());
+       }
+       ```
+
+       
+
+   - D: remove() / clean()
+
+   - 面试题
+
+     - 请说一下HashMap扩容的过程
+     - HashMap线程不安全，要用ConcurrentHashMap
+     - HashMap在jdk7+改变
