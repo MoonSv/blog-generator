@@ -274,3 +274,5 @@ Builder可以使用`command + n`来自动构建
        list3.add(i);
      }
      ```
+
+2. HashSet是无序的，如果有需要可以使用LinkedHashSet
