@@ -275,7 +275,7 @@ Builder可以使用`command + n`来自动构建
      }
      ```
 
-2. HashSet是无序的，如果有需要可以使用LinkedHashSet
+2. HashSet是无序的(完全随机)，如果有需要可以使用LinkedHashSet(按插入顺序排序)
 
 3. Map
 
@@ -306,8 +306,27 @@ Builder可以使用`command + n`来自动构建
 
    - D: remove() / clean()
 
-   - 面试题
+   - TreeSet最大特点是它是一个**有序**集合
 
+   - 面试题
+   
      - 请说一下HashMap扩容的过程
      - HashMap线程不安全，要用ConcurrentHashMap
      - HashMap在jdk7+改变
+     
+   - Collections工具方法集合
+   
+     - emptySet(): 返回一个方便的空集合
+     - synchronizedCollection: 将一个集合编程线程安全的
+     - Unmodifieablecollection: 将一个集合编程不可变的（也可以使用Guava的Immutable）
+   
+   - Guava
+   
+     - 不要重复发明轮子！尽量使用经过实战检验的类库
+     - Lists/Sets/Maps
+     - ImmutableMap/ImmutableSet
+     - MultiSet/MultiMap
+     - BiMap
+     - MultiSet使用静态工厂方法
+       - 回忆静态工厂方法，一定有一个private的构造器，来确保要想构建实例只能通过静态工厂方法来返回
+     - MultiMap, 一个key可以对应多个value
