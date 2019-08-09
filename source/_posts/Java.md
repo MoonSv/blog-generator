@@ -310,4 +310,4 @@ Builder可以使用`command + n`来自动构建
 
      - 请说一下HashMap扩容的过程
      - HashMap线程不安全，要用ConcurrentHashMap
-     - HashMap在jdk7+改变
+       - HashMap在jdk7+改变
