@@ -330,3 +330,188 @@ Builder可以使用`command + n`来自动构建
      - MultiSet使用静态工厂方法
        - 回忆静态工厂方法，一定有一个private的构造器，来确保要想构建实例只能通过静态工厂方法来返回
      - MultiMap, 一个key可以对应多个value
+
+# 文件与IO
+
+1. File
+
+   - File是一个路径
+   - `file.getCanonicalPath()`将复杂的目录关系简单整理化
+
+2. NIO
+
+   - Java7之后引入的
+   - New IO / Non-blocking IO
+   - NIO的Path就是旧版本的File
+   - Java7引入了Files
+     - 如果一个名字代表一个类的话，那么其s方法（如Files）就代表该类的工具方法集合
+     - `Files.readAllLines(Path path)`是一个常用的方法，用于不想使用第三方库的时候
+
+3. 练习
+
+   很多种方式来实现IO
+
+   1. Commons.IO中的FileUtils
+
+      ```java
+      // read file
+      FileUtils.readlins(file); // File file
+      
+      // write into file
+      FileUtils.writelines(lines) // List<String> lines
+      ```
+
+   2. BufferedReader & BufferedWriter
+
+      ```java
+      // read file
+      public static List<String> readFile2(File file) {
+        BufferedReader bufferedReader = null;
+        List<String> lines = new ArrayList<String>();
+        try {
+          bufferedReader = new BufferedReader(new FileReader(file));
+          String line;
+          while ((line = bufferedReader.readLine()) != null) {
+            lines.add(line);
+          }
+      
+        } catch (IOException e) {
+          e.printStackTrace();
+        } finally {
+          try {
+            bufferedReader.close();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+        return lines;
+      }
+      
+      // write into file
+      public static void writeLinesToFile2(List<String> lines, File file) {
+        BufferedWriter bufferedWriter = null;
+        try {
+          bufferedWriter = new BufferedWriter(new FileWriter(file));
+          for (String s : lines
+              ) {
+            bufferedWriter.write(s);
+            bufferedWriter.newLine(); // indicate there is a newline
+          }
+        } catch (IOException e) {
+          e.printStackTrace();
+        } finally {
+          try {
+            bufferedWriter.close();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+      ```
+
+   3. Files工具类
+
+      ```java
+      // read file
+      public static List<String> readFile3(File file) throws IOException {
+        return Files.readAllLines(Paths.get(file.getPath()));
+      }
+      
+      // write into file
+      public static void writeLinesToFile3(List<String> lines, File file) throws IOException {
+        Files.write(Paths.get(file.getPath()), lines);
+      }
+      ```
+
+# 异常
+
+1. `try/catch/finally`
+
+   1. 如果没有try，异常将击穿所有的栈帧
+
+   2. catch可以将一个异常抓住
+
+   3. finally执行清理工作
+
+   4. JDK7+: try-with-resources
+
+      只要是实现了`Closable`的类都可以使用try-with-resources
+
+2. throw / throws
+
+   - throw指直接抛出一个异常，写在代码块里
+   - throws指这个**方法**有可能会抛出一个异常
+
+   15502299857
+
+3. Throwable - 可以被抛出的东西（有毒）
+
+   1. Exception - checked exception (受检异常，有毒， 代表一种预料之中的异常，IOException)
+
+      RuntimeException (运行时异常，无毒， 代表一种预料之外的异常，因此不需要声明)
+
+   2. Error (错误，毒)
+
+## 异常的抛出原则
+
+1. 能用`if/else`处理的，不要使用异常
+
+2. 尽早抛出准异常
+
+3. 异常要准确，带有详细信息
+
+4. 抛出异常也比悄悄执行错误的逻辑强的多
+
+5. 本方法是否有责任处理这个异常？
+
+   不要处理不归自己管的异常
+
+6. 本方法是否有能力处理这个异常
+
+   如果自己无法处理，就抛出
+
+7. 如非万分必要，不要忽略异常
+
+# 多线程
+
+## 查看程序的执行时间
+
+```java
+long t0 = System.currentTimeMillis();
+function();
+long t1 = System.currentTimeMillis();
+System.out.println("runs" + (t1 - t0) + "ms"); 
+```
+
+## Thread
+
+- Java中只有这么一种东西代表线程
+- `start`方法才能并发执行！
+- 每多开一个线程，就多个执行流
+- 方法栈（局部变量）是**线程私有**的
+- 静态变量/类变量是被**所有线程共享**的
+
+## 多线程的使用场景
+
+- 对于IO密集型应用极其有用
+  - 网路IO（通常包括数据库）
+  - 文件IO
+- 对于CPU密集型应用稍有折扣
+- 性能提升的上限在哪里？
+  - 单核CPU：100%
+  - 多核CPU：N * 100%
+
+## 线程不安全的表现
+
+- 数据错误
+  - `i++`
+  - `if-then-do`
+- 著名的HashMap的死循环问题
+- 写一段代码来重现死锁
+- 预防死锁产生的原则：
+  - 所有的线程都按照相同的顺序获得资源的锁
+- 死锁问题的排查
+- 多线程的经典问题：哲学家用餐
+
+## 线程安全
+
